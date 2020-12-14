@@ -1,6 +1,4 @@
 # users_actions_automation
-Automation of different user's actions with python
-
 
 Required modules: os, pywinauto, pyautogui, time, datetime, random\
 Python version: Python3
