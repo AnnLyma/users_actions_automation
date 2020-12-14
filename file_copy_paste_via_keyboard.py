@@ -1,4 +1,3 @@
-#imports
 import os
 import pywinauto
 import pyautogui
@@ -11,23 +10,25 @@ import random
 source_folder_name = "C:\\Users\\User\\Desktop\\source\\"
 destination_folder_name = "C:\\Users\\User\\Desktop\\drag_here\\"
 
-#get a last item of the path to perform actions later
+# create a folder for testing if there is no folder with such name yet
+def folder_create(source_folder_name, destination_folder_name):
+    try:
+    # create a source/destination folder
+        os.mkdir(source_folder_name)
+        print("Directory " , source_folder_name ,  " Created ")
+        os.mkdir(destination_folder_name)
+        print("Directory " , destination_folder_name ,  " Created ")
+    except FileExistsError:
+        print("Directory " , source_folder_name ,  " already exists")
+        print("Directory " , destination_folder_name ,  " already exists")
+    time.sleep(1)
 
-def last_item (path):
-    last_item  = path.split("\\")
-    last_item = last_item[-2]
-    return str(last_item)
-
-
-# create a file which will be used for testing
-# variable with symbols to create a random content in a file
+# a variable with a list of characters to create a content from
 letters = "abcdefghijklmnopqrstuvwxyz0123456789"
-# timenow is needed to make the filename unique
-time_now = str(datetime.datetime.now())
-time_now = time_now.replace(":", "_")
 
-# generate a random string
-def randomstring(string, string_len):
+# generate a random string to put it into a file
+def randomstring(letters, string_len):
+    # variable with symbols to create a random content in a file
      i = 0
      new_string = ""
      while i < string_len:
@@ -38,37 +39,29 @@ def randomstring(string, string_len):
          i = i + 1
      return new_string
 
-# create a folder for testing if there is no folder with such name yet
-def folder_create(source_folder_name, destination_folder_name):
-    try:
-    # create source/destination folder
-        os.mkdir(source_folder_name)
-        print("Directory " , source_folder_name ,  " Created ")
-        os.mkdir(destination_folder_name)
-        print("Directory " , destination_folder_name ,  " Created ")
-    except FileExistsError:
-        print("Directory " , source_folder_name ,  " already exists")
-        print("Directory " , destination_folder_name ,  " already exists")
-    time.sleep(1)
-
-
-
 # create a file for testing with a randomstring inside
 def file_create(source_folder_name, file_name):
     time.sleep(1)
-    f = open(source_folder_name + file_name + ".txt", "w+")
+    # timenow is needed to make the filename unique
+    time_now = str(datetime.datetime.now())
+    time_now = time_now.replace(":", "_")
+    f = open(source_folder_name + file_name + time_now + ".txt", "w+")
     f.write(randomstring(letters, 258))
     f.close()
     time.sleep(1)
 
 # get a screen size to be able to move windows later
-
 def screen_size():
     pyautogui.size()
     width, height = pyautogui.size()
     # print(width, height)
     return (width, height)
 
+#get a last item of the path to perform actions later
+def last_item (path):
+    last_item  = path.split("\\")
+    last_item = last_item[-2]
+    return str(last_item)
 
 # click on the window's title bar in order to move it later
 def prepare_to_move_window(folder_name):
@@ -88,7 +81,7 @@ def prepare_to_move_window(folder_name):
                 else:
                     pass
 
- # move the window to top left corner
+# move the window to top left corner
 def move_left():
     time.sleep(1)
     pywinauto.mouse.release(coords=(0,0))
@@ -118,7 +111,6 @@ def keyboard_copy(folder_name):
                 else:
                     pass
 
-
 # perform a paste of the file copied earlier
 def keyboard_paste(folder_name):
     top_windows = pywinauto.Desktop(backend="uia").windows()
@@ -135,7 +127,7 @@ def keyboard_paste(folder_name):
                     # print("Action done")
                     time.sleep(0.5)
                     break
-                    
+
 # click on file which should be deleted
 def select_file_in(folder_name):
     top_windows = pywinauto.Desktop(backend="uia").windows()
@@ -149,7 +141,7 @@ def select_file_in(folder_name):
                     pywinauto.mouse.click(coords=(src_x,src_y))
                     break
                 else:
-                    pass      
+                    pass
 
 def remove_the_file(folder_name):
     select_file_in(folder_name)
@@ -188,15 +180,15 @@ def close(folder_name):
 #                     break
 
 #  execute the code
-
 folder_create(source_folder_name, destination_folder_name)
 #create a file for testing with a unique name
-file_create(source_folder_name, "keyb_c_f_pc_" + time_now)
-os.startfile(source_folder_name)
+file_create(source_folder_name, "keyb_c_f_pc_")
 #open a source folder
+os.startfile(source_folder_name)
 last_item (source_folder_name)
 prepare_to_move_window(last_item(source_folder_name))
 move_left()
+#open a destination folder
 os.startfile(destination_folder_name)
 prepare_to_move_window(last_item(destination_folder_name))
 move_right()
