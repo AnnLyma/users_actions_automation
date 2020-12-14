@@ -2,9 +2,7 @@
 import os
 import pywinauto
 import pyautogui
-import subprocess
 import time
-import shutil
 import datetime
 import random
 
