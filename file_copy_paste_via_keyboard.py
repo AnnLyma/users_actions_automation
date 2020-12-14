@@ -100,20 +100,6 @@ def move_right():
     y = screen_size()[1]
     pywinauto.mouse.release(coords=(x, y))
 
-def highlight_file_in(folder_name):
-    top_windows = pywinauto.Desktop(backend="uia").windows()
-    for w in top_windows:
-        if w.window_text() == folder_name:
-            w=w
-            for item in w.descendants():
-                if "keyb_c_f_pc_" in item.window_text():
-                    src_x = item.rectangle().mid_point().x
-                    src_y = item.rectangle().mid_point().y
-                    pywinauto.mouse.press(coords=(src_x,src_y))
-                    break
-                else:
-                    pass
-
 # perform a copy
 def keyboard_copy(folder_name):
     top_windows = pywinauto.Desktop(backend="uia").windows()
@@ -214,8 +200,7 @@ move_left()
 os.startfile(destination_folder_name)
 prepare_to_move_window(last_item(destination_folder_name))
 move_right()
-highlight_file_in(last_item(source_folder_name))
-keyboard_copy(source_folder_name)
+keyboard_copy(last_item(source_folder_name))
 keyboard_paste(last_item(destination_folder_name))
 remove_the_file(last_item(source_folder_name))
 remove_the_file(last_item(destination_folder_name))
