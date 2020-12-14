@@ -2,7 +2,7 @@
 Automation of different user's actions with python
 
 
-Required modules: os, pywinauto, pyautogui, time, datetime, random
+Required modules: os, pywinauto, pyautogui, time, datetime, random\
 Python version: Python3
 
 The code creates 2 folders for testing, and a file with a unique content and name. 
