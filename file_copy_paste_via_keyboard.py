@@ -19,7 +19,7 @@ def last_item (path):
     return str(last_item)
 
 
-#create a file which will be used for testing
+# create a file which will be used for testing
 # variable with symbols to create a random content in a file
 letters = "abcdefghijklmnopqrstuvwxyz0123456789"
 # timenow is needed to make the filename unique
@@ -31,9 +31,9 @@ def randomstring(string, string_len):
      i = 0
      new_string = ""
      while i < string_len:
-         #Choose a character from the list
+         # Choose a character from the list
          random_char = letters[random.randrange(len(letters))]
-         #Add the character to the string
+         # Add the character to the string
          new_string += random_char
          i = i + 1
      return new_string
@@ -41,7 +41,7 @@ def randomstring(string, string_len):
 # create a folder for testing if there is no folder with such name yet
 def folder_create(source_folder_name, destination_folder_name):
     try:
-    # Create target Directory
+    # create source/destination folder
         os.mkdir(source_folder_name)
         print("Directory " , source_folder_name ,  " Created ")
         os.mkdir(destination_folder_name)
@@ -93,7 +93,7 @@ def move_left():
     time.sleep(1)
     pywinauto.mouse.release(coords=(0,0))
 
-# move the window to top right corner
+# move the window to bottom right corner
 def move_right():
     time.sleep(1)
     x = screen_size()[0]
@@ -110,21 +110,6 @@ def highlight_file_in(folder_name):
                     src_x = item.rectangle().mid_point().x
                     src_y = item.rectangle().mid_point().y
                     pywinauto.mouse.press(coords=(src_x,src_y))
-                    break
-                else:
-                    pass
-
-# click on file which should be deleted
-def select_file_in(folder_name):
-    top_windows = pywinauto.Desktop(backend="uia").windows()
-    for w in top_windows:
-        if w.window_text() == folder_name:
-            w=w
-            for item in w.descendants():
-                if "keyb_c_f_pc_" in item.window_text():
-                    src_x = item.rectangle().mid_point().x
-                    src_y = item.rectangle().mid_point().y
-                    pywinauto.mouse.click(coords=(src_x,src_y))
                     break
                 else:
                     pass
@@ -164,6 +149,26 @@ def keyboard_paste(folder_name):
                     # print("Action done")
                     time.sleep(0.5)
                     break
+                    
+# click on file which should be deleted
+def select_file_in(folder_name):
+    top_windows = pywinauto.Desktop(backend="uia").windows()
+    for w in top_windows:
+        if w.window_text() == folder_name:
+            w=w
+            for item in w.descendants():
+                if "keyb_c_f_pc_" in item.window_text():
+                    src_x = item.rectangle().mid_point().x
+                    src_y = item.rectangle().mid_point().y
+                    pywinauto.mouse.click(coords=(src_x,src_y))
+                    break
+                else:
+                    pass      
+
+def remove_the_file(folder_name):
+    select_file_in(folder_name)
+    pywinauto.keyboard.send_keys("{DELETE}")
+    # time.sleep(0.5)
 
 # close the window
 def close(folder_name):
@@ -180,10 +185,6 @@ def close(folder_name):
                 else:
                     pass
 
-def remove_the_file(folder_name):
-    select_file_in(folder_name)
-    pywinauto.keyboard.send_keys("{DELETE}")
-    # time.sleep(0.5)
 
 # This function is needed for some other location which require confirmation of deletion
 # def confirm_file_removal():
@@ -200,7 +201,7 @@ def remove_the_file(folder_name):
 #                     time.sleep(2)
 #                     break
 
-#  keyboard copy and keyboard move between 2 folders on desktop
+#  execute the code
 
 folder_create(source_folder_name, destination_folder_name)
 #create a file for testing with a unique name
