@@ -4,6 +4,7 @@ import pyautogui
 import time
 import datetime
 import random
+import glob
 
 # source folder and destination folder names, change the username if needed.
 
@@ -22,6 +23,14 @@ def folder_create(source_folder_name, destination_folder_name):
         print("Directory " , source_folder_name ,  " already exists")
         print("Directory " , destination_folder_name ,  " already exists")
     time.sleep(1)
+
+#check if the folder contains any old files. If yes - remove them
+def folder_content(folder_name):
+    # mypath = folder_name #Enter your path here
+    for root, dirs, files in os.walk(folder_name):
+        for file in files:
+            os.remove(os.path.join(root, file))
+
 
 # a variable with a list of characters to create a content from
 letters = "abcdefghijklmnopqrstuvwxyz0123456789"
@@ -124,7 +133,7 @@ def keyboard_paste(folder_name):
                     src_y = element.rectangle().mid_point().y
                     pywinauto.mouse.click(coords=(src_x,src_y))
                     pywinauto.keyboard.send_keys('^v')
-                    # print("Action done")
+                    print("Action done")
                     time.sleep(0.5)
                     break
 
@@ -181,6 +190,8 @@ def close(folder_name):
 
 #  execute the code
 folder_create(source_folder_name, destination_folder_name)
+folder_content(source_folder_name)
+folder_content(destination_folder_name)
 #create a file for testing with a unique name
 file_create(source_folder_name, "keyb_c_f_pc_")
 #open a source folder
