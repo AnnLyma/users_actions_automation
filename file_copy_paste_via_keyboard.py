@@ -11,7 +11,7 @@ import glob
 source_folder_name = "C:\\Users\\User\\Desktop\\source\\"
 destination_folder_name = "C:\\Users\\User\\Desktop\\drag_here\\"
 
-# create a folder for testing if there is no folder with such name yet
+# create a folder if there is no folder with such name yet
 def folder_create(source_folder_name, destination_folder_name):
     try:
     # create a source/destination folder
@@ -48,7 +48,7 @@ def randomstring(letters, string_len):
          i = i + 1
      return new_string
 
-# create a file for testing with a randomstring inside
+# create a file with a randomstring inside
 def file_create(source_folder_name, file_name):
     time.sleep(1)
     # timenow is needed to make the filename unique
@@ -188,24 +188,36 @@ def close(folder_name):
 #                     time.sleep(2)
 #                     break
 
+# prepare for the action (create folders, files, etc)
+def prepare():
+    folder_create(source_folder_name, destination_folder_name)
+    folder_content(source_folder_name)
+    folder_content(destination_folder_name)
+    #create a file for testing with a unique name
+    file_create(source_folder_name, "keyb_c_f_pc_")
+    #open a source folder
+    os.startfile(source_folder_name)
+    last_item (source_folder_name)
+    prepare_to_move_window(last_item(source_folder_name))
+    move_left()
+    #open a destination folder
+    os.startfile(destination_folder_name)
+    prepare_to_move_window(last_item(destination_folder_name))
+    move_right()
+
+# perform the keyboard copy
+def k_copy():
+    keyboard_copy(last_item(source_folder_name))
+    keyboard_paste(last_item(destination_folder_name))
+    remove_the_file(last_item(source_folder_name))
+    remove_the_file(last_item(destination_folder_name))
+
+# close the windos
+def finish():
+        close(last_item(destination_folder_name))
+        close(last_item(source_folder_name))
+
 #  execute the code
-folder_create(source_folder_name, destination_folder_name)
-folder_content(source_folder_name)
-folder_content(destination_folder_name)
-#create a file for testing with a unique name
-file_create(source_folder_name, "keyb_c_f_pc_")
-#open a source folder
-os.startfile(source_folder_name)
-last_item (source_folder_name)
-prepare_to_move_window(last_item(source_folder_name))
-move_left()
-#open a destination folder
-os.startfile(destination_folder_name)
-prepare_to_move_window(last_item(destination_folder_name))
-move_right()
-keyboard_copy(last_item(source_folder_name))
-keyboard_paste(last_item(destination_folder_name))
-remove_the_file(last_item(source_folder_name))
-remove_the_file(last_item(destination_folder_name))
-close(last_item(destination_folder_name))
-close(last_item(source_folder_name))
+prepare()
+k_copy()
+finish()
