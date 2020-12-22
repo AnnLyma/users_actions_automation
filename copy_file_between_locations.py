@@ -28,7 +28,6 @@ def folder_create(source_folder_name, destination_folder_name):
 
 #check if the folder contains any old files. If yes - remove them
 def folder_content(folder_name):
-    # mypath = folder_name #Enter your path here
     for root, dirs, files in os.walk(folder_name):
         for file in files:
             os.remove(os.path.join(root, file))
@@ -276,7 +275,7 @@ def close(folder_name):
 # prepare for the action (create folders, files, move windows, etc)
 def prepare():
     folder_create(source_folder_name, destination_folder_name)
-    #create a file for testing with a unique name
+    #create a file for with a unique name
     file_create(source_folder_name, "keyb_c_f_pc_")
     #open a source folder
     os.startfile(source_folder_name)
