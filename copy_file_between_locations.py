@@ -28,7 +28,6 @@ def folder_create(source_folder_name, destination_folder_name):
 
 #check if the folder contains any old files. If yes - remove them
 def folder_content(folder_name):
-    # mypath = folder_name #Enter your path here
     for root, dirs, files in os.walk(folder_name):
         for file in files:
             os.remove(os.path.join(root, file))
