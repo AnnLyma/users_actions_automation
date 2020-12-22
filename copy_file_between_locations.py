@@ -15,10 +15,12 @@ def folder_create(source_folder_name, destination_folder_name):
     # create a source/destination folder
         os.mkdir(source_folder_name)
         print("Directory " , source_folder_name ,  " Created ")
+    except FileExistsError:
+        print("Directory " , source_folder_name ,  " already exists")
+    try:
         os.mkdir(destination_folder_name)
         print("Directory " , destination_folder_name ,  " Created ")
     except FileExistsError:
-        print("Directory " , source_folder_name ,  " already exists")
         print("Directory " , destination_folder_name ,  " already exists")
         folder_content(source_folder_name)
         folder_content(destination_folder_name)
