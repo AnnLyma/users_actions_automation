@@ -1,6 +1,11 @@
 # users_actions_automation
 
 Required modules: os, pywinauto, pyautogui, time, datetime, random\
+
+Do the following before running the script:\
+pip install pywinauto\
+pip install pyautogui\
+
 Python version: Python3
 
 The code creates 2 folders and a file with a unique content and name.
