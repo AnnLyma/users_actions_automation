@@ -9,7 +9,7 @@ import getpass
 # get a username
 username = getpass.getuser()
 
-# source folder and destination folder names, change the username if needed.
+# source folder and destination folder names
 source_folder_name = "C:\\Users\\"+username+"\\Desktop\\source\\"
 destination_folder_name = "C:\\Users\\"+username+"\\Desktop\\drag_here\\"
 
