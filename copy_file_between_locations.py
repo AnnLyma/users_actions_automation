@@ -4,10 +4,14 @@ import pyautogui
 import time
 import datetime
 import random
+import getpass
+
+# get a username
+username = getpass.getuser()
 
 # source folder and destination folder names, change the username if needed.
-source_folder_name = "C:\\Users\\User\\Desktop\\source\\"
-destination_folder_name = "C:\\Users\\User\\Desktop\\drag_here\\"
+source_folder_name = "C:\\Users\\"+username+"\\Desktop\\source\\"
+destination_folder_name = "C:\\Users\\"+username+"\\Desktop\\drag_here\\"
 
 # create a folder if there is no folder with such name yet
 def folder_create(source_folder_name, destination_folder_name):
